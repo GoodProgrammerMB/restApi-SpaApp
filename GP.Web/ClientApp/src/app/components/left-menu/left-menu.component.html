@@ -1,0 +1,56 @@
+<ul [class.slim]="!expand">
+
+  <li *ngFor="let menuItem of menu; let i = index">
+    <div class="menu-item" routerLinkActive="active">
+
+      <a *ngIf="menuItem?.children" class="block" (click)="collapse(i)">
+        <!-- <i class="icon" [ngClass]="menuItem.icon" *ngIf="menuItem.icon"></i> -->
+        <img *ngIf="menuItem.iconSrc" [src]="menuItem.iconSrc" />
+        <div class="label">{{menuItem.label}}</div>
+        <i class="fa fa-angle-down onEnd" [class.rotate]="collapsedList[i]" aria-hidden="true"></i>
+      </a>
+
+      <a *ngIf="!menuItem?.children" class="block" [routerLink]="menuItem.routerLink" routerLinkActive="active"
+        (click)="collapse(i)" tooltipPosition="right" showDelay="150">
+        <!-- <i class="icon" [ngClass]="menuItem.icon" *ngIf="menuItem.icon"></i> -->
+        <img *ngIf="menuItem.iconSrc" [src]="menuItem.iconSrc" />
+        <div class="label">{{menuItem.label}}</div>
+      </a>
+
+      <div *ngIf="(!expand && menuItem?.children)" class="tooltip">
+        <div class="menu-parent-title">{{menuItem.label}}</div>
+        <ul class="content">
+          <li *ngFor="let childMenuItem of menuItem?.children; let ic = index"
+     >
+            <a class="block" [routerLink]="childMenuItem.routerLink" routerLinkActive="active">
+              <!-- <i class="icon" [ngClass]="childMenuItem.icon" *ngIf="childMenuItem.icon"></i>
+              <img *ngIf="childMenuItem.iconSrc" [src]="childMenuItem.iconSrc" /> -->
+              <div class="label">{{childMenuItem.label}}</div>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+      <ul class="content" *ngIf="menuItem?.children"
+        [class.hidde]="(!collapsedList[i] || !expand) && menuItem?.children">
+        <li *ngFor="let childMenuItem of menuItem?.children; let ic = index"
+     >
+          <a class="block" [routerLink]="childMenuItem.routerLink" routerLinkActive="active">
+            <!-- <i class="icon" [ngClass]="childMenuItem.icon" *ngIf="childMenuItem.icon"></i> -->
+            <!-- <img *ngIf="childMenuItem.iconSrc" [src]="childMenuItem.iconSrc" /> -->
+            <div class="label">{{childMenuItem.label}}</div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+
+  <li class="expand onBottom">
+    <div class="block" (click)="onExpandMenu()" tooltipPosition="right"
+      showDelay="150">
+      <!-- <i class="fa fa-angle-double-right icon" aria-hidden="true" [class.rotate]="expand"></i> -->
+      <img src="../../../../../assets/icons/menu/navigation_arrwow.svg" [class.rotate]="expand" />
+    </div>
+  </li>
+</ul>

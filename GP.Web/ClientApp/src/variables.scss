@@ -1,0 +1,57 @@
+// colors
+
+$primary-color: #3f51b5;
+$primary-dark-color: #303f9f;
+$primary-transparent-color: #303f9f33;
+$secondary-color: #ffc107;
+$secondary-dark-color: #dfa700;
+$tertiary-color: #d0d0d0;
+
+// header
+$header-bg-color: $primary-color;
+$header-hover-bg-color: $primary-dark-color;
+$header-font-color: #f4f4f4;
+
+// left menu
+$leftmenu-bg-color: #ffffff;
+$leftmenu-font-color: #555555;
+$leftmenu-border-color: #d0d0d0;
+$leftmenu-hover-color: #e9e9e9;
+$leftmenu-active-color: #0049424d;
+
+//breadcrumb
+$breadcrumb-bg-color: transparent;
+$breadcrumb-hover-bg-color: $primary-dark-color;
+$breadcrumb-current-bg-color: $secondary-color;
+$breadcrumb-current-color: #ffff;
+$breadcrumb-color: #ffff;
+
+// content
+// $content-bg-color: #f4f4f4;34495e
+$content-bg-color: #f4f4f4;
+$card-header-bg-color: #e9e9e9;
+$card-body-bg-color: #ffffff;
+$font-color: #333333;
+
+$content-text-primary-color: #333333;
+$content-bg-primary-color: #f4f4f4;
+$content-border-primary-color: #c8c8c8;
+
+// butons
+$main-button-color: $primary-color;
+$main-button-hover-color: $primary-dark-color;
+
+// inputs
+$grey-button-bg-color: #eeeeee;
+$grey-button-color: #616161;
+
+// tables
+$table-header-border-color: #d0d0d0;
+$table-selected-row-color: #d0d0d0;
+
+// layout
+
+$header-height: 64px;
+$left-menu-slim-width: 50px;
+$left-menu-width: 224px;
+$hide-leftmenu-size: 1000px;

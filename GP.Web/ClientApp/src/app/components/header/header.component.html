@@ -1,0 +1,30 @@
+<div class="header">
+  <div id="leftSide">
+    <div id="logo" [class.expand]="expand" routerLink="/">
+      <img src="" />
+    </div>
+    <!-- <div class="block menu-block" (click)="expandMenu()">
+      <i class="fa fa-bars icon" [class.rotate]="expand"></i>
+    </div> -->
+    <!-- <app-breadcrumb id="breadcrumb"></app-breadcrumb> -->
+  </div>
+
+  <div id="rightSide">
+    <!-- <div class="block" (click)="openFullscreen()" *ngIf="!isFullScrean"
+      pTooltip="{{'common.openFullscreen'}}" tooltipPosition="bottom">
+      <i class="fa fa-expand icon"></i>
+    </div>
+    <div class="block" (click)="closeFullscreen()" *ngIf="isFullScrean"
+      pTooltip="{{'common.closeFullscreen' | translate}}" tooltipPosition="bottom">
+      <i class="fa fa-compress icon"></i>
+    </div> -->
+
+    <div class="block">
+      <i class="fa fa-language icon"></i>
+      <div class="dropdown-content">
+
+      </div>
+    </div>
+
+  </div>
+</div>

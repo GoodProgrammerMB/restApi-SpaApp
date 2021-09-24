@@ -1,0 +1,34 @@
+<section class="app-wrap">
+  <h1>Aktywne stoliki</h1>
+  <article class="data-table">
+      <p-table #dt [columns]="cols" [value]="tables" [scrollable]="true" [resizableColumns]="true" >
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" class="headerRow" [ngSwitch]="col.field">
+              {{col.header}}
+              <div *ngSwitchCase="'action'" class="centercontent">
+                <button pButton (click)="onAdd()" class="p-ripple p-button p-component app-button app-button-save" label="Dodaj"></button>
+              </div>
+              <p-sortIcon *ngSwitchDefault [field]="col.field"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" [class.selected]="selectedItemId == rowData.id">
+            <td *ngFor="let col of columns" [ngSwitch]="col.field" >
+              <div *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </div>
+              <div *ngSwitchCase="'orderItems'" class="order-items">
+                {{rowData[col.field]}}
+              </div>
+              <div *ngSwitchCase="'action'" class="centercontent">
+                <button pButton class="action" (click)="onChange(rowData)"class="p-ripple p-button p-component p-button-warning" label="Zmień aktywność"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+  </article>
+</section>

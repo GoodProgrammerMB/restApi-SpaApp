@@ -1,0 +1,129 @@
+<p-table #dataTable [columns]="columnsDefinition" [value]="dataSource" [scrollable]="scrollable" [resizableColumns]="resizableColumns"
+        scrollHeight="calc(100% - 20px)">
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col *ngFor="let column of columns" [style.width]="column.width">
+          </colgroup>
+        </ng-template>
+        <!--Section heder-->
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let column of columns" [pSortableColumn]="column.field" class="headerRow" [ngSwitch]="column.field">
+              {{column.header}}
+              <div *ngSwitchCase="'action'"></div>
+              <p-sortIcon *ngSwitchDefault [field]="column.field"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+            <th *ngFor="let column of columns" [ngSwitch]="column.inputType">
+              <!--In the upper right corner the action button-->
+              <div *ngSwitchCase="inputType.Action"  class="centercontent">
+                <ng-container *ngIf="!!column.headerButton">
+                  <ng-container *ngFor="let button of column.headerButton">
+                    <button *ngIf="!!button.routerLink; else action" class="add" routerLink="{{button.routerLink}}"
+                    [ngSwitch]="button.actionType" [className]="!button.showText ? 'only-icon':''">
+                      <ng-container *ngSwitchCase="actionType.Add">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <div *ngIf="button.showText" class="label">{{'common.addNew'}}</div>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="actionType.Show">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <div *ngIf="button.showText" class="label">{{'common.show'}</div>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="actionType.Calendar">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <div *ngIf="button.showText" class="label">{{'common.calendar'}}</div>
+                      </ng-container>
+                  </button>
+                  <ng-template #action>
+                    <button class="add" [ngSwitch]="button.actionType" (click)="actionOnClick()" [className]="!button.showText ? 'only-icon':''">
+                      <ng-container *ngSwitchCase="actionType.Add">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <div *ngIf="button.showText" class="label">{{'common.addNew'}}</div>
+                      </ng-container>
+                    </button>
+                  </ng-template>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <!--FILTER drop-down list-->
+              <p-multiSelect *ngSwitchCase="inputType.MultiSelect" [options]="multiSelectOptions" [filter]="false"
+                [maxSelectedLabels]="1" optionLabel="name" appendTo="body" [panelStyle]="{minWidth:'15em'}"
+                [style]="{minWidth:'100%'}" defaultLabel="All" [selectedItemsLabel]="'{0} items'"
+                [showToggleAll]="false" (onChange)="filterTableByTypes(dataTable, $event.value, column.field, 'in')">
+              </p-multiSelect>
+              <!--FILTER textbox-->
+              <!-- <input *ngSwitchCase="inputType.Filter" type="text" placeholder="{{'common.filter'}}"
+                (input)="dataTable.filter($event.target.value, column.field, column.filterMatchMode)"> -->
+              <!--DEFAULT FILTER textbox-->
+              <!-- <input *ngSwitchDefault type="text" placeholder="{{'common.filter'}}"
+                (input)="dataTable.filter($event.target.value, column.field, column.filterMatchMode)"> -->
+            </th>
+          </tr>
+        </ng-template>
+        <!--Section heder End-->
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" [class.selected]="selectedRowId == rowData.id">
+            <td *ngFor="let column of columns" [ngSwitch]="column.inputType">
+              <div *ngSwitchCase="inputType.Calendar">
+                {{rowData[column.field] | date:"HH:mm dd.MM.yyyy"}}
+              </div>
+              <div *ngSwitchCase="inputType.Time">
+                {{rowData[column.field]}}
+              </div>
+              <div *ngSwitchCase="inputType.MultiSelect">
+                <!-- <span *ngIf="!!column.enum; else join">
+                  {{rowData[column.field] | eNumName: column.enum}}
+                </span>
+                <ng-template #join>
+                  {{rowData[column.field] | join:', '}}
+                </ng-template> -->
+              </div>
+              <div *ngSwitchCase="inputType.MuchOfMany">
+                {{rowData[column.field]}}/{{rowData[column.howMany]}}
+              </div>
+              <div *ngSwitchCase="inputType.Translate">
+                {{rowData[column.field]}}
+              </div>
+              <!--Button Section-->
+              <div *ngSwitchCase="inputType.Action" class="centercontent">
+                <button *ngIf="column.button==buttonType.Edit" class="action" (click)="onEdit(rowData)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                  <div class="label">{{'common.edit'}}</div>
+                </button>
+                <button *ngIf="column.button==buttonType.Details" class="action" (click)="onShow(rowData)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  <div class="label">{{'reports.assetDetails'}}</div>
+                </button>
+                <button *ngIf="column.button==buttonType.Show" class="action" (click)="onShow(rowData)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  <div class="label">{{'common.show'}}</div>
+                </button>
+                <button *ngIf="column.button==buttonType.ShowOrEdit" class="action" (click)="onEdit(rowData)">
+                  <ng-container *ngIf="rowData[column.conditionField] !== column.conditionDifferentFrom; else edit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <div class="label">{{'common.show'}}</div>
+                  </ng-container>
+                  <ng-template #edit>
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <div class="label">{{'common.edit'}}</div>
+                  </ng-template>
+                </button>
+                <ng-container *ngIf="column.button==buttonType.AssetsTransfer">
+                  <button class="action" (click)="onShow(rowData)">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <div class="label">{{'reports.assets'}}</div>
+                  </button>
+                  <button class="action" (click)="onTransfers(rowData)">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <div class="label">{{'reports.transfers'}}</div>
+                  </button>
+                </ng-container>
+              </div>
+              <div *ngSwitchDefault>
+                {{rowData[column.field]}}
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>

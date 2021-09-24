@@ -1,0 +1,53 @@
+<article class="app-wrap">
+<h1>Składanie zamówienia</h1>
+  <form [formGroup]="creatOrEditForm" class="app-form" autocomplete="off">
+    <div class="input-container">
+      <span class="label label-font">Numer stolika:</span>
+    <p-dropdown [options]="tables" [autoDisplayFirst]="false" styleClass="form-dropdown" [style]="{'min-width':'250px', 'width':'100%'}" formControlName="tableNumber">
+    </p-dropdown>
+    </div>
+    <!-- <div class="input-container">
+      <div class="label">Menu number:</div>
+    <p-dropdown [options]="reasons" [autoDisplayFirst]="false" [style]="{'width':'100%'}" formControlName="tableNumber">
+    </p-dropdown>
+    </div> -->
+
+
+      <div class="action-row">
+        <span class="label-font column-three">Danie</span>
+        <span class="label-font column-three">Ilość</span>
+        <button pButton type="button" icon="pi pi-plus" class="p-button-rounded p-ripple p-button p-component p-button-icon-only" (click)="onAddItemToOrder()"></button>
+      </div>
+    <ng-container formArrayName="products">
+      <ng-container
+        *ngFor="let product of productsRowArray.controls; let i = index">
+        <div class="action-row" [formGroupName]="i">
+          <span class="label-font column-three">
+            <p-dropdown [options]="productWithMenu" [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+              formControlName="name" appendTo="body">
+            </p-dropdown>
+
+          </span>
+          <span class="label-font column-three">
+            <p-inputNumber formControlName="quantity" placeholder="ilość" mode="decimal" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal"
+            spinnerMode="horizontal" [step]="1" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"></p-inputNumber>
+          </span>
+
+
+          <button pButton type="button" icon="pi pi-times" class="p-button-rounded p-ripple p-button p-component p-button-icon-only p-button-danger" (click)="onDeleteItemFromOrder(i)">
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
+
+
+
+              <button pButton type="button" class="p-ripple p-button p-component app-button app-button-save" label="Zapisz" (click)="onSave()" ></button>
+
+
+
+
+  </form>
+
+</article>

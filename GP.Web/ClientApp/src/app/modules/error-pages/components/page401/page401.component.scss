@@ -1,0 +1,31 @@
+.center{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container > img {
+  max-height: 50vh;
+}
+.error-container{
+  text-align: center;
+}
+.error-code{
+  margin-top: 3vh;
+  font-weight: bold;
+  font-size: 40px;
+}
+.error-desc{
+  font-weight: bold;
+  font-size: 30px;
+  margin: 5px 0px 15px 0px;
+}
+a > img {
+  max-height: 8vh;
+  margin: 8vh 3px 0px 0px;
+}
+a > img:hover{
+  background-color: #00756917;
+}

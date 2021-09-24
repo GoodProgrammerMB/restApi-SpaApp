@@ -1,0 +1,142 @@
+@import "../../../variables.scss";
+.header {
+  display: flex;
+  position: fixed;
+  background-color: $header-bg-color;
+  //margin: 0px 0px 0px 0px;
+  padding: 0;
+  width: 100%;
+  height: $header-height;
+  z-index: 100;
+}
+
+:host {
+  display: flex;
+  justify-content: space-between;
+}
+
+#leftSide {
+  height: 100%;
+  display: inline-block;
+  width: 50%;
+  justify-content: flex-start;
+  vertical-align: top;
+}
+
+#rightSide {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: flex-end;
+}
+
+#logo {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  font-size: 30px;
+  // background-color: $header-hover-bg-color;
+  color: $header-font-color;
+  height: 100%;
+  width: $left-menu-slim-width;
+  vertical-align: top;
+  padding: 10px 2px;
+  transition: 0.3s all ease;
+  overflow: hidden;
+}
+
+#logo > img {
+  height: 45px;
+}
+
+#logo.expand {
+  width: $left-menu-width;
+  padding: 10px;
+}
+
+.block {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  width: $header-height;
+  color: $header-font-color;
+  justify-content: center;
+  cursor: pointer;
+
+  &.svg:hover img {
+    filter: brightness(0) invert(1);
+  }
+
+  &.divider {
+    border-left: 1px solid hsla(0, 0%, 100%, 0.3);
+  }
+}
+
+.block:hover {
+  background-color: $header-hover-bg-color;
+  opacity: 1;
+  .dropdown-content {
+    display: block;
+  }
+}
+
+#hiddeIcon {
+  display: inline-block;
+}
+
+.icon {
+  line-height: inherit;
+  font-size: 24px;
+  transition-duration: 0.3s;
+}
+
+.rotate {
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Safari 3-8 */
+  transform: rotate(180deg);
+}
+
+#breadcrumb {
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+  margin-left: 15px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $leftmenu-bg-color;
+  color: $leftmenu-font-color;
+  min-width: 160px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  top: $header-height;
+  text-align: center;
+
+  div {
+    height: 45px;
+    line-height: 42px;
+  }
+
+  div:hover {
+    background-color: $leftmenu-hover-color;
+  }
+}
+
+.dropdown-content > div.selected {
+  color: $header-font-color;
+  background-color: $primary-dark-color;
+}
+
+@media only screen and (max-width: $hide-leftmenu-size) {
+  #leftSide {
+    width: 100%;
+  }
+  #rightSide {
+    display: none;
+  }
+  .menu-block {
+    float: right;
+  }
+}

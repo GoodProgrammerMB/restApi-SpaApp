@@ -1,0 +1,11 @@
+<div class="page-wrapper">
+  <p-toast></p-toast>
+  <app-header id="header" [expand]="expand" (expandEvent)="expandMenu($event)"></app-header>
+  <app-left-menu [class.expand]="expand" id="leftmenu" [expand]="expand" (expandEvent)="expandMenu($event)">
+  </app-left-menu>
+  <div id="content" [class.expandMenu]="expand">
+    <router-outlet></router-outlet>
+  </div>
+  <footer>
+    <span>© Good Programmer Marcin Buczak 2021</span>
+  </footer>

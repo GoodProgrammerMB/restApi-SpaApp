@@ -1,0 +1,33 @@
+@import "../../../../../variables.scss";
+
+// .mycontainer {
+//   height: calc(100% - 20px);
+//   margin: 10px;
+//   display: flex;
+// }
+.app-wrap {
+  height: 100%;
+  min-height: 500px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  font-size: 3em;
+  color: $primary-color;
+}
+
+.menu-amount{
+  width: 60px;
+  color: $primary-color;
+  text-align: center;
+  font-weight: 600;
+}
+
+.action-container{
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}

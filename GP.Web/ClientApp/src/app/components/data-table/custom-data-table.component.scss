@@ -1,0 +1,15 @@
+.only-icon{
+  width: 30px;
+  margin-right: 10px;
+  border-radius: 4px;
+  padding: 6px;
+  padding-left: 8px;
+  text-align: center;
+}
+
+button.action {
+  margin-left: 10px;
+}
+button.action:first-child {
+  margin-left: 0px;
+}
